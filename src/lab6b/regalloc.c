@@ -231,7 +231,7 @@ struct RA_result RA_regAlloc(F_frame f, AS_instrList il) {
   // Temp_tempList freezeWorklist = NULL;
   // Temp_tempList spillWorklist = NULL;
   // Temp_tempList spilledNodes = NULL;
-  // Temp_tempList coalescedNodes = NULL;		// Coalesce
+  // Temp_tempList coalescedNodes = NULL;   // Coalesce
   // Temp_tempList coloredNodes = NULL;
   // Temp_tempList selectStack = NULL;
 

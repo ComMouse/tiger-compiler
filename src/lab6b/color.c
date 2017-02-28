@@ -65,11 +65,11 @@ static Temp_tempList instUse(AS_instr inst) {
 }
 
 static Temp_tempList cloneRegs(Temp_tempList regs) {
-	Temp_tempList tl = NULL;
-	for (; regs; regs = regs->tail) {
-		tl = Temp_TempList(regs->head, tl);
-	}
-	return tl;
+  Temp_tempList tl = NULL;
+  for (; regs; regs = regs->tail) {
+    tl = Temp_TempList(regs->head, tl);
+  }
+  return tl;
 }
 
 static Temp_temp tempHead(Temp_tempList temps) {
@@ -527,8 +527,8 @@ static void colorMain() {
 
 struct COL_result COL_color(G_graph ig, Temp_map initial, Temp_tempList regs,
                             AS_instrList worklistMoves, Temp_map moveList, Temp_map spillCost) {
-	//your code here.
-	struct COL_result ret;
+  //your code here.
+  struct COL_result ret;
 
   c.precolored = initial;
   c.initial = NULL;
@@ -557,8 +557,8 @@ struct COL_result COL_color(G_graph ig, Temp_map initial, Temp_tempList regs,
 
   Temp_map precolored = initial;
   Temp_map colors = Temp_layerMap(Temp_empty(), initial);
-	Temp_tempList spilledNodes = NULL, coloredNodes = NULL;
-	G_nodeList nodes = G_nodes(ig);
+  Temp_tempList spilledNodes = NULL, coloredNodes = NULL;
+  G_nodeList nodes = G_nodes(ig);
   G_nodeList temps = NULL;
 
   G_nodeList nl;
@@ -626,14 +626,14 @@ struct COL_result COL_color(G_graph ig, Temp_map initial, Temp_tempList regs,
     Temp_enter(colors, tl->head, color);
   }
 
-	ret.coloring = colors;
+  ret.coloring = colors;
   
   ret.colored = NULL;
   for (; coloredNodes; coloredNodes = coloredNodes->tail) {
     ret.colored = L(coloredNodes->head, ret.colored);
   }
 
-	ret.spills = NULL;
+  ret.spills = NULL;
   for (; c.spilledNodes; c.spilledNodes = c.spilledNodes->tail) {
     printf("spilled: %s\n", tempName(c.spilledNodes->head));
     ret.spills = L(c.spilledNodes->head, ret.spills);
@@ -643,18 +643,18 @@ struct COL_result COL_color(G_graph ig, Temp_map initial, Temp_tempList regs,
   ret.coalescedNodes = c.coalescedNodes;
   ret.alias = c.alias;
 
-	return ret;
+  return ret;
 }
 
 static struct COL_result COL_color2(G_graph ig, Temp_map initial, Temp_tempList regs,
                             AS_instrList worklistMoves, Temp_map moveList, Temp_map spillCost) {
-	//your code here.
-	struct COL_result ret;
+  //your code here.
+  struct COL_result ret;
 
   Temp_map precolored = initial;
   Temp_map colors = Temp_layerMap(Temp_empty(), initial);
-	G_nodeList spilledNodes = NULL, coloredNodes = NULL;
-	G_nodeList nodes = G_nodes(ig);
+  G_nodeList spilledNodes = NULL, coloredNodes = NULL;
+  G_nodeList nodes = G_nodes(ig);
   G_nodeList temps = NULL;
 
   G_nodeList nl;
@@ -665,7 +665,7 @@ static struct COL_result COL_color2(G_graph ig, Temp_map initial, Temp_tempList 
     temps = G_NodeList(nl->head, temps);
   }
 
-	while (temps != NULL) {
+  while (temps != NULL) {
     G_node n = temps->head;
     Temp_tempList okColors = cloneRegs(regs);
     G_nodeList adjs = G_adj(n);
@@ -692,16 +692,16 @@ static struct COL_result COL_color2(G_graph ig, Temp_map initial, Temp_tempList 
 
     // Next
     temps = temps->tail;
-	}
+  }
 
-	ret.coloring = colors;
+  ret.coloring = colors;
   
   ret.colored = NULL;
   for (; coloredNodes; coloredNodes = coloredNodes->tail) {
     ret.colored = Temp_TempList(node2Temp(coloredNodes->head), ret.colored);
   }
 
-	ret.spills = NULL;
+  ret.spills = NULL;
   for (; spilledNodes; spilledNodes = spilledNodes->tail) {
     printf("spilled: %s\n", tempName(node2Temp(spilledNodes->head)));
     ret.spills = Temp_TempList(node2Temp(spilledNodes->head), ret.spills);
@@ -711,5 +711,5 @@ static struct COL_result COL_color2(G_graph ig, Temp_map initial, Temp_tempList 
   ret.coalescedMoves = NULL;
   ret.coalescedNodes = NULL;
 
-	return ret;
+  return ret;
 }
